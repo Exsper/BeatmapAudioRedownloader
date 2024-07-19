@@ -70,6 +70,8 @@ async function main() {
         }
         let audioFileName = beatmapInfo.audioFileName;
         let fullMp3 = beatmapInfo.fullMp3;
+        let bgFileName = beatmapInfo.bgFileName;
+        let bg = beatmapInfo.bg;
         let beatmapPath = beatmapDirs[i];
         for (let audioIndex = 0; audioIndex < audioFileName.length; audioIndex++) {
             let songPath = path.join(beatmapPath, audioFileName[audioIndex]);
@@ -87,6 +89,26 @@ async function main() {
                 }
                 catch(ex) {
                     console.log(indexText + setIds[i] + ": "+ audioFileName[audioIndex] + " 下载失败，移入“失败的谱面集ID.txt”");
+                    fs.appendFileSync('./失败的谱面集ID.txt', setIds[i] + '\r\n');
+                }
+            }
+        }
+        for (let bgIndex = 0; bgIndex < bgFileName.length; bgIndex++) {
+            let bgPath = path.join(beatmapPath, bgFileName[bgIndex]);
+            let fileExist = false;
+            try {
+                fileExist = await fs.promises.access(bgPath, fs.constants.F_OK);
+                console.log(indexText + setIds[i] + ": 已存在 "+ bgFileName[bgIndex] + " ，跳过");
+                continue;
+            }
+            catch(ex) {
+                console.log(indexText + setIds[i] + ": "+ bgFileName[bgIndex] + " 不存在，正在下载...");
+                try {
+                    await downloadSong(bg[bgIndex], bgPath);
+                    console.log(indexText + setIds[i] + ": "+ bgFileName[bgIndex] + " 下载成功");
+                }
+                catch(ex) {
+                    console.log(indexText + setIds[i] + ": "+ bgFileName[bgIndex] + " 下载失败，移入“失败的谱面集ID.txt”");
                     fs.appendFileSync('./失败的谱面集ID.txt', setIds[i] + '\r\n');
                 }
             }

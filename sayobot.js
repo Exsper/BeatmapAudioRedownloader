@@ -16,14 +16,22 @@ class BeatmapInfo {
 
     this.audioFileName = [];
     this.fullMp3 = [];
+    this.bgFileName = [];
+    this.bg = [];
 
     data.bid_data.map((bdata) => {
       const audioFileName = bdata.audio;
+      const bgFileName = bdata.bg;
       const fullMp3 = `https://dl.sayobot.cn/beatmaps/files/${this.sid}/${audioFileName}`;
+      const bg = `https://dl.sayobot.cn/beatmaps/files/${this.sid}/${bgFileName}`
 
       if (audioFileName && !this.audioFileName.includes(audioFileName)) {
         this.audioFileName.push(audioFileName);
         this.fullMp3.push(fullMp3);
+      }
+      if (bgFileName && !this.bgFileName.includes(bgFileName)) {
+        this.bgFileName.push(bgFileName);
+        this.bg.push(bg);
       }
     })
   }
