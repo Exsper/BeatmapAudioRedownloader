@@ -3,6 +3,9 @@ const path = require('path');
 const sayobot = require('./sayobot');
 const axios = require('axios');
 
+// 测试时
+// const directoryPath = path.join(__dirname , 'Songs');
+// 打包时
 const directoryPath = './Songs';
 
 async function searchBeatmap(beatmapSetId) {
