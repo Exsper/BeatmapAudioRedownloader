@@ -1,0 +1,19 @@
+{
+  "name": "beatmapaudioredownloader",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "ncc": "ncc build index.js -o dist",
+    "pkg": "pkg ./dist/index.js -t node18-win-x64 -o app/beatmapaudioredownloader.exe"
+  },
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0",
+    "path": "^0.12.7",
+    "querystring": "^0.2.1"
+  }
+}
